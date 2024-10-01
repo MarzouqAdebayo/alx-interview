@@ -1,10 +1,4 @@
 #!/usr/bin/python3
-
-"""
-pascal_triangle
-"""
-
-
 def pascal_triangle(n):
     result = []
     for i in range(n):
