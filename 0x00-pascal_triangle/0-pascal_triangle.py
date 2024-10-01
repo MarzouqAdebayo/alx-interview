@@ -1,5 +1,14 @@
 #!/usr/bin/python3
+"""
+Module '0-pascal_triangle.py'
+"""
+
+
 def pascal_triangle(n):
+    """
+    Creates a list of lists of integers representing the
+    Pascal's triangle of depth n
+    """
     result = []
     for i in range(n):
         temp = [1]
