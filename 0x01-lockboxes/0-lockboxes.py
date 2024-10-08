@@ -9,16 +9,14 @@ def canUnlockAll(boxes):
         return False
 
     visitedBoxes = set()
-    visitBox(0, boxes, visitedBoxes)
+    keys = [0]
+
+    while keys:
+        currentKey = keys.pop()
+        if currentKey not in visitedBoxes:
+            visitedBoxes.add(currentKey)
+            for key in boxes[currentKey]:
+                if key < len(boxes):
+                    keys.append(key)
 
     return len(visitedBoxes) == len(boxes)
-
-
-def visitBox(boxIndex, boxes, visitedBoxes):
-    if boxIndex >= len(boxes) or boxIndex in visitedBoxes:
-        return
-
-    visitedBoxes.add(boxIndex)
-
-    for key in boxes[boxIndex]:
-        visitBox(key, boxes, visitedBoxes)
