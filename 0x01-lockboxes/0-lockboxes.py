@@ -9,7 +9,6 @@ def canUnlockAll(boxes):
         return False
     visitedBoxes = []
     visitBox(0, boxes, visitedBoxes)
-    print(visitedBoxes, boxes)
     return len(visitedBoxes) == len(boxes)
 
 
