@@ -7,17 +7,18 @@ Module '0-lockboxes.py'
 def canUnlockAll(boxes):
     if len(boxes) == 0:
         return False
-    visitedBoxes = []
+
+    visitedBoxes = set()
     visitBox(0, boxes, visitedBoxes)
-    # return len(visitedBoxes) == len(boxes)
-    return set(visitedBoxes) == set([i for i in range(len(boxes))])
+
+    return len(visitedBoxes) == len(boxes)
 
 
 def visitBox(boxIndex, boxes, visitedBoxes):
-    if boxIndex > len(boxes) - 1:
+    if boxIndex >= len(boxes) or boxIndex in visitedBoxes:
         return
-    keys = boxes[boxIndex]
-    visitedBoxes.append(boxIndex)
-    for key in keys:
-        if key not in visitedBoxes:
-            visitBox(key, boxes, visitedBoxes)
+
+    visitedBoxes.add(boxIndex)
+
+    for key in boxes[boxIndex]:
+        visitBox(key, boxes, visitedBoxes)
