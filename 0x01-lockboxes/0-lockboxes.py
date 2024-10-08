@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+Module '0-lockboxes.py'
+"""
+
+
 def canUnlockAll(boxes):
     visitedBoxes = set()
     visitBox(0, boxes, visitedBoxes)
