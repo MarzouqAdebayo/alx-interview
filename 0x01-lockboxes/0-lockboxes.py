@@ -13,6 +13,8 @@ def canUnlockAll(boxes):
 
 
 def visitBox(boxIndex, boxes, visitedBoxes):
+    if boxIndex > len(boxes) - 1:
+        return
     keys = boxes[boxIndex]
     visitedBoxes.append(boxIndex)
     for key in keys:
