@@ -26,12 +26,11 @@ def parse_line(line: str):
     return status, size
 
 
-def print_to_format(
-        total_file_size: int, request_frequency: {}, no_of_lines: int):
-    """Prints to desired format"""
+def print_stats(total_file_size: int, request_frequency: {}, no_of_lines: int):
+    """Prints stats in desired format"""
     print("File size: {}".format(total_file_size))
-    for item in sorted(request_frequency):
-        print("{}: {}".format(item, request_frequency[item]))
+    for code in sorted(request_frequency):
+        print("{}: {}".format(code, request_frequency[code]))
 
 
 def main():
@@ -52,16 +51,10 @@ def main():
                 total_file_size += data[1]
             # after every ten lines or CTRL + C, print stats
             no_of_lines += 1
-            if no_of_lines == 10:
-                no_of_lines = 0
-                print_to_format(
-                    total_file_size, request_frequency, no_of_lines)
-    except KeyboardInterrupt:
-        print_to_format(total_file_size, request_frequency, no_of_lines)
-    except BrokenPipeError:
-        devnull = os.open(os.devnull, os.O_WRONLY)
-        os.dup2(devnull, sys.stdout.fileno())
-        sys.exit(1)
+            if no_of_lines % 10 == 0:
+                print_stats(total_file_size, request_frequency, no_of_lines)
+    except (KeyboardInterrupt, EOFError):
+        print_stats(total_file_size, request_frequency, no_of_lines)
 
 
 if __name__ == "__main__":
