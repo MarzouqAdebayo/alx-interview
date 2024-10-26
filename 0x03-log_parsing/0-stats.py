@@ -49,10 +49,11 @@ def main():
                 else:
                     request_frequency[data[0]] += 1
                 total_file_size += data[1]
-                # after every ten lines or CTRL + C, print stats
+            # after every ten lines or CTRL + C, print stats
+            if data is not None:
                 no_of_lines += 1
-                if no_of_lines % 10 == 0:
-                    print_stats(total_file_size, request_frequency, no_of_lines)
+            if no_of_lines % 10 == 0:
+                print_stats(total_file_size, request_frequency, no_of_lines)
     except (KeyboardInterrupt, EOFError):
         pass
     finally:
