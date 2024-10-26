@@ -54,6 +54,8 @@ def main():
             if no_of_lines % 10 == 0:
                 print_stats(total_file_size, request_frequency, no_of_lines)
     except (KeyboardInterrupt, EOFError):
+        pass
+    finally:
         print_stats(total_file_size, request_frequency, no_of_lines)
 
 
