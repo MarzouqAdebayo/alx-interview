@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Module '0-stats.py' contains scripts that reads stdin
 line by line and computes metrics """
-import os
 import re
 import sys
 
@@ -38,16 +37,18 @@ def main():
     total_file_size = 0
     request_frequency = {}
     no_of_lines = 0
+    status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
     try:
         for line in sys.stdin:
             line = line.rstrip()
             # check line format with regex
             data = parse_line(line)
             if data is not None:
-                if data[0] not in request_frequency:
-                    request_frequency[data[0]] = 1
-                else:
-                    request_frequency[data[0]] += 1
+                if data[0] in status_codes:
+                    if data[0] not in request_frequency:
+                        request_frequency[data[0]] = 1
+                    else:
+                        request_frequency[data[0]] += 1
                 total_file_size += data[1]
             # after every ten lines or CTRL + C, print stats
             no_of_lines += 1
