@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Module '0-stats.py' contains scripts that reads stdin
 line by line and computes metrics """
 import os
