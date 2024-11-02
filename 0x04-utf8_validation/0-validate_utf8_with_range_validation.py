@@ -19,11 +19,11 @@ def extract_and_count_bits(first_byte):
 
     if (byte & 0x80) == 0:
         return (1, byte & 0x7F)
-    if (byte & 0xE0) == 0xC0:
+    if (byte & 0xE0) == 0xC0:  # Check specifically for 110xxxxx
         return (2, byte & 0x1F)
     if (byte & 0xF0) == 0xE0:
         return (3, byte & 0x0F)
-    if (byte & 0xF8) == 0xF0:
+    if (byte & 0xF8) == 0xF0:  # Check specifically for 11110xxx
         return (4, byte & 0x07)
     return (-1, 0)
 
@@ -47,6 +47,29 @@ def extract_following_bits(following_byte):
     return (-1, 0)
 
 
+def validate_range(data, n_bytes):
+    """Validates if a code point is valid according to UTF-8 rules
+
+    Args:
+        code_point: Integer value of assembled code point
+        n_bytes: Number of bytes used in encoding
+    Returns:
+        bool: True if valid, False otherwise
+    """
+    # Check for invalid Surrogate halves
+    if 0xD800 <= data <= 0xDFFF:
+        return False
+    if data > 0x10FFFF:
+        return False
+    if n_bytes == 2 and data < 0x80:
+        return False
+    if n_bytes == 3 and data < 0x800:
+        return False
+    if n_bytes == 4 and data < 0x10000:
+        return False
+    return True
+
+
 def validUTF8(data):
     """Validates UTF-8 encoded data
     <https://datatracker.ietf.org/doc/html/rfc3629#page-4>
@@ -68,10 +91,16 @@ def validUTF8(data):
         if (i + n_bytes) > len(data):
             return False
 
+        # Assemble and validate the code point
+        assembled_code = first_bits
         for j in range(i + 1, i + n_bytes):
             status, bits = extract_following_bits(data[j])
             if status == -1:
                 return False
+            assembled_code = (assembled_code << 6) | bits
+
+        # if not validate_range(assembled_code, n_bytes):
+        #     return False
 
         i += n_bytes
 
