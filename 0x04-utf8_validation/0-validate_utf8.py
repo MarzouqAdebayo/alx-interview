@@ -89,13 +89,6 @@ def validUTF8(data):
         if (i + n_bytes) > len(data):
             return False
 
-        if n_bytes == 2 and first_bits <= 0x01:
-            return False
-        if n_bytes == 3 and first_bits == 0:
-            return False
-        if n_bytes == 4 and first_bits == 0:
-            return False
-
         # Assemble and validate the code point
         assembled_code = first_bits
         for j in range(i + 1, i + n_bytes):
