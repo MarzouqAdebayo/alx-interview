@@ -6,6 +6,9 @@ def extract_and_count_bits(first_byte):
     """Gets the number of bytes on based on the
     starting bit in arg first_byte and
     extract the rest of the bits"""
+    if not isinstance(first_byte, int) or\
+            first_byte < 0 or first_byte > 0x10FFFF:
+        return (-1, 0)
     one_byte_mask = 0x80  # 0b10000000
     two_byte_mask = 0xC0  # 0b11000000
     three_byte_mask = 0xE0  # 0b11100000
@@ -23,6 +26,9 @@ def extract_and_count_bits(first_byte):
 
 def extract_following_bits(following_byte):
     """Extracts following bits"""
+    if not isinstance(following_byte, int) or\
+            following_byte < 0 or following_byte > 0x10FFFF:
+        return (-1, 0)
     one_byte_mask = 0x80  # 0b10000000
     following_bytes_mask = 0xC0  # 0b11000000
     if (following_byte & following_bytes_mask) == one_byte_mask:
@@ -36,8 +42,6 @@ def validUTF8(data):
     """
     i = 0
     while i < len(data):
-        if data[i] is not int or data[i] < 0 or data[i] > 0x10FFFF:
-            return False
         (n_bytes, _) = extract_and_count_bits(data[i])
 
         if n_bytes == -1:
@@ -45,8 +49,6 @@ def validUTF8(data):
         if (i + n_bytes) > len(data):
             return False
         for j in range(i + 1, i + n_bytes):
-            if data[j] is not int or data[j] < 0 or data[j] > 0x10FFFF:
-                return False
             (current_byte_count, _) = extract_following_bits(data[j])
             if current_byte_count == -1:
                 return False
