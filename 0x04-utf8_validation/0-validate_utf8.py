@@ -27,7 +27,7 @@ def extract_and_count_bits(first_byte):
 def extract_following_bits(following_byte):
     """Extracts following bits"""
     if not isinstance(following_byte, int) or\
-            following_byte < 0 or following_byte > 0x10FFFF:
+            following_byte < 0x80 or following_byte > 0xBF:
         return (-1, 0)
     one_byte_mask = 0x80  # 0b10000000
     following_bytes_mask = 0xC0  # 0b11000000
