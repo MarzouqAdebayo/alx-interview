@@ -15,14 +15,16 @@ def extract_and_count_bits(first_byte):
     if not isinstance(first_byte, int) or first_byte < 0 or first_byte > 0xFF:
         return (-1, 0)
 
-    if (first_byte & 0x80) == 0:
-        return (1, first_byte & 0x7F)
-    if (first_byte & 0xE0) == 0xC0:  # Check specifically for 110xxxxx
-        return (2, first_byte & 0x1F)
-    if (first_byte & 0xF0) == 0xE0:
-        return (3, first_byte & 0x0F)
-    if (first_byte & 0xF0) == 0xF0:  # Check specifically for 11110xxx
-        return (4, first_byte & 0x07)
+    byte = first_byte & 0xFF
+
+    if (byte & 0x80) == 0:
+        return (1, byte & 0x7F)
+    if (byte & 0xE0) == 0xC0:  # Check specifically for 110xxxxx
+        return (2, byte & 0x1F)
+    if (byte & 0xF0) == 0xE0:
+        return (3, byte & 0x0F)
+    if (byte & 0xF8) == 0xF0:  # Check specifically for 11110xxx
+        return (4, byte & 0x07)
     return (-1, 0)
 
 
