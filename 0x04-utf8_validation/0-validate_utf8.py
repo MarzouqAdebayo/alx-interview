@@ -36,6 +36,8 @@ def validUTF8(data):
     """
     i = 0
     while i < len(data):
+        if data[i] is not int or data[i] < 0 or data[i] > 0x10FFFF:
+            return False
         (n_bytes, _) = extract_and_count_bits(data[i])
 
         if n_bytes == -1:
@@ -43,6 +45,8 @@ def validUTF8(data):
         if (i + n_bytes) > len(data):
             return False
         for j in range(i + 1, i + n_bytes):
+            if data[j] is not int or data[j] < 0 or data[j] > 0x10FFFF:
+                return False
             (current_byte_count, _) = extract_following_bits(data[j])
             if current_byte_count == -1:
                 return False
