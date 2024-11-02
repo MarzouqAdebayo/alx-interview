@@ -97,8 +97,8 @@ def validUTF8(data):
                 return False
             assembled_code = (assembled_code << 6) | bits
 
-        if not validate_range(assembled_code, n_bytes):
-            return False
+        # if not validate_range(assembled_code, n_bytes):
+        #     return False
 
         i += n_bytes
 
