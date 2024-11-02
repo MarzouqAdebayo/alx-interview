@@ -77,7 +77,7 @@ def validUTF8(data):
         bool: True if data is valid UTF-8, False otherwise
     """
     if not data:
-        return False
+        return True
 
     i = 0
     while i < len(data):
