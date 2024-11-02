@@ -21,7 +21,7 @@ def extract_and_count_bits(first_byte):
         return (2, first_byte & 0x1F)
     if (first_byte & 0xF0) == 0xE0:
         return (3, first_byte & 0x0F)
-    if (first_byte & 0xF8) == 0xF0:  # Check specifically for 11110xxx
+    if (first_byte & 0xF0) == 0xF0:  # Check specifically for 11110xxx
         return (4, first_byte & 0x07)
     return (-1, 0)
 
