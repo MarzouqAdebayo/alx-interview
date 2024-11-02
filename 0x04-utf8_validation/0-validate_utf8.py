@@ -40,11 +40,9 @@ def validUTF8(data):
 
         if n_bytes == -1:
             return False
-        # if n_bytes == 1:
-        #     continue
         if i + n_bytes > len(data):
             return False
-        for j in range(i + 1, n_bytes):
+        for j in range(i + 1, i + n_bytes):
             (current_byte_count, _) = extract_following_bits(data[j])
             if current_byte_count == -1:
                 return False
