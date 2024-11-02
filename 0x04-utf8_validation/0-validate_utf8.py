@@ -12,7 +12,7 @@ def extract_and_count_bits(first_byte):
         tuple: (number of bytes in sequence, extracted bits)
         (-1, 0) if invalid
     """
-    if not isinstance(first_byte, int) or first_byte < 0 or first_byte > 0xFF:
+    if not isinstance(first_byte, int) or first_byte < 0:
         return (-1, 0)
 
     byte = first_byte & 0xFF
@@ -105,4 +105,3 @@ def validUTF8(data):
         i += n_bytes
 
     return True
-
