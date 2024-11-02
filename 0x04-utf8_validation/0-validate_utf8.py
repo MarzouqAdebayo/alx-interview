@@ -34,8 +34,6 @@ def validUTF8(data):
     """Validates utf8 data
     <https://datatracker.ietf.org/doc/html/rfc3629#page-4>
     """
-    if len(data) == 0:
-        return False
     i = 0
     while i < len(data):
         (n_bytes, _) = extract_and_count_bits(data[i])
