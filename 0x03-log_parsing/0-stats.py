@@ -58,6 +58,7 @@ def main():
         pass
     finally:
         print_stats(total_file_size, request_frequency, no_of_lines)
+        print("no of line ", no_of_lines)
 
 
 if __name__ == "__main__":
