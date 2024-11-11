@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-""""""
+"""Module '0-nqueens.py' """
 import sys
-from typing import Tuple
+# import time
 
 
 def get_input() -> int:
@@ -20,91 +20,61 @@ def get_input() -> int:
     return n
 
 
-def get_attacking_diagonals(N, x, y):
-    """Gets and returns all attacking diagonals for the given coordinate"""
-    if x < 0 or x > N - 1 or y < 0 or y > N - 1:
-        return []
-    diagonals = [(x, y)]
-    current_x = x - 1
-    current_y = y - 1
-    while current_x >= 0 and current_y >= 0:
-        diagonals.append((current_x, current_y))
-        current_x -= 1
-        current_y -= 1
-    current_x = x - 1
-    current_y = y + 1
-    while current_x >= 0 and current_y <= N - 1:
-        diagonals.append((current_x, current_y))
-        current_x -= 1
-        current_y += 1
-    current_x = x + 1
-    current_y = y - 1
-    while current_x <= N - 1 and current_y >= 0:
-        diagonals.append((current_x, current_y))
-        current_x += 1
-        current_y -= 1
-    current_x = x + 1
-    current_y = y + 1
-    while current_x <= N - 1 and current_y <= N - 1:
-        diagonals.append((current_x, current_y))
-        current_x += 1
-        current_y += 1
-    return diagonals
+def is_valid_square(N: int, board, row: int, col: int):
+    """Validates a safe square on the board"""
+    for j in range(col):
+        if board[row][j] == 1:
+            return False
 
+    i, j = row, col
+    while i >= 0 and j >= 0:
+        if board[i][j] == 1:
+            return False
+        i -= 1
+        j -= 1
 
-def is_non_attacking_square(N: int, possible_solution, x: int, y: int):
-    """Checks if a queen can be placed in a square without
-    it attacking any other queen
-    """
-    for [i, j] in possible_solution:
-        if x == i:
+    i, j = row, col
+    while i < N and j >= 0:
+        if board[i][j] == 1:
             return False
-        if y == j:
-            return False
-        if (x, y) in get_attacking_diagonals(N, i, j):
-            return False
+        i += 1
+        j -= 1
+
     return True
 
 
-def move_to_next_square(N: int, x: int, y: int) -> Tuple[int, int]:
-    """Moves to the next square based on N"""
-    if y < N - 1:
-        y += 1
-    else:
-        y = 0
-        x += 1
-    return (x, y)
-
-
-def build_solution(N: int, x: int, y: int, built_solution=[], calls=0):
-    """Recursively builds a solution for given a starting square"""
-    calls += 1
-    i = x
-    j = y
-    while i <= N - 1 and j <= N - 1:
-        if is_non_attacking_square(N, built_solution, i, j):
-            built_solution.append([i, j])
-        i, j = move_to_next_square(N, i, j)
-    if len(built_solution) == N:
-        return built_solution
-    if len(built_solution) == 0:
-        return built_solution
-    last = built_solution.pop()
-    if len(built_solution) == 0:
-        return built_solution
-    i, j = move_to_next_square(N, last[0], last[1])
-    return build_solution(N, i, j, built_solution, calls)
-
-
-def nqueens(N=4):
+def nqueens(board, col, N, solutions):
     """Gets a set of solutions for the N queens problem"""
-    for i in range(0, N):
-        for j in range(0, N):
-            solution = build_solution(N, i, j, [])
-            # print(f"{i},{j}: {solution}")
-            if len(solution) == N:
-                print(solution)
+    if col >= N:
+        solution = []
+        for i in range(N):
+            for j in range(N):
+                if board[i][j] == 1:
+                    solution.append([i, j])
+        solutions.append(solution)
+        return
+
+    for row in range(N):
+        if is_valid_square(N, board, row, col):
+            board[row][col] = 1
+            # Recursive call to place remaining queens
+            nqueens(board, col + 1, N, solutions)
+            # Backtracking here
+            board[row][col] = 0
 
 
-n = get_input()
-nqueens(n)
+def main():
+    """Main"""
+    n = get_input()
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    solutions = []
+    nqueens(board, 0, n, solutions)
+    for solution in solutions:
+        print(solution)
+
+
+# start_time = time.perf_counter()
+main()
+# end_time = time.perf_counter()
+# execution_time = end_time - start_time
+# print(f"Execution time: {execution_time} seconds")
