@@ -43,6 +43,7 @@ def solve_nqueens(board, col, N, solutions):
 
     # Try placing queen in each row of the current column
     for row in range(N):
+        print(board)
         if is_safe(board, row, col, N):
             # Place queen
             board[row][col] = 1
