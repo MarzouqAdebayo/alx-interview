@@ -7,7 +7,7 @@ def makeChange(coins, sum):
     needed to make change given a sum and a list
     of coins
     """
-    if sum <= 0 or len(coins) <= 0:
+    if sum <= 0 or not coins:
         return 0
     sorted_coins = sorted(coins, reverse=True)
     n = len(sorted_coins)
@@ -25,3 +25,6 @@ def makeChange(coins, sum):
     if rem != 0:
         return -1
     return no_of_change
+
+
+makeChange(None, 5)
