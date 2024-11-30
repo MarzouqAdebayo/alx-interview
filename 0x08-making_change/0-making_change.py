@@ -22,10 +22,6 @@ def makeChange(coins, sum):
             no_of_change += soln
             rem = rem % sorted_coins[i]
         i += 1
-    print(rem)
     if rem != 0:
         return -1
     return no_of_change
-
-
-print(makeChange([], 5))
