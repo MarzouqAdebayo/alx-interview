@@ -53,13 +53,3 @@ def island_perimeter(grid):
                 right = 1
             perimeter += top + bottom + left + right
     return perimeter
-
-
-grid = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-]
-print(island_perimeter(grid))
