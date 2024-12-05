@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 Module '0-island_perimeter.py'. Calculates the perimeter of an island
 in a square grid.
