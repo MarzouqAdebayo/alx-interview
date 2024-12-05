@@ -39,7 +39,7 @@ def island_perimeter(grid):
                 top = 1 if grid[i - 1][j] == 0 else 0
             else:
                 top = 1
-            if i + 1 <= h:
+            if i + 1 < h:
                 bottom = 1 if grid[i + 1][j] == 0 else 0
             else:
                 bottom = 1
@@ -47,7 +47,7 @@ def island_perimeter(grid):
                 left = 1 if grid[i][j - 1] == 0 else 0
             else:
                 left = 1
-            if j + 1 <= w:
+            if j + 1 < w:
                 right = 1 if grid[i][j + 1] == 0 else 0
             else:
                 right = 1
