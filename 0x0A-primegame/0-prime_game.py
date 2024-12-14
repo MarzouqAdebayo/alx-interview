@@ -16,7 +16,7 @@ def sieve_of_eratosthenes(n):
 
 def isWinner(x, nums):
     """Simulates game play for prime game"""
-    if not len(nums):
+    if not len(nums) or x < 1:
         return None
     map = {"Maria": 0, "Ben": 0}
     for i in range(x):
