@@ -16,10 +16,14 @@ def sieve_of_eratosthenes(n):
 
 def isWinner(x, nums):
     """Simulates game play for prime game"""
+    if not len(nums):
+        return None
     map = {"Maria": 0, "Ben": 0}
     for i in range(x):
         current_player = "Maria"
-        primes = sieve_of_eratosthenes(nums[i])
+        primes = []
+        if i < len(nums):
+            primes = sieve_of_eratosthenes(nums[i])
         for prime in primes:
             if current_player == "Maria":
                 current_player = "Ben"
